@@ -1,0 +1,163 @@
+import sys
+import random
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QPushButton, QMessageBox
+
+# RAID (7.1) 7.1.5
+RAID_Questions_7_1_5 = [
+
+    {
+        "Question": "Witch RAID level is known for stripping without redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "Raid 0",
+        "Difficulty": "Easy"
+    },
+
+    {
+        "Question": "Witch RAID level mirrors data across multiple disks for redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 1",
+        "Difficulty": "Easy"
+    },
+
+    {
+        "Question": "Witch RAID level offers striping with parity for fault tolerance",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Medium"
+    },
+
+    {
+        "Question": "What RAID level combines both striping and mirroring?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Medium"
+    },
+
+    {
+        "Question": "What is a key feature of Network Attached Storage (NAS)?",
+        "Options": ["Directly attached to server", "Uses file-level storage", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses file-level storage",
+        "Difficulty": "Easy"
+    },
+
+    {
+        "Question": "What is a key feature of Storage Area Network (SAN)?",
+        "Options": ["Uses file-level storage", "Directly attached to server", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses block-level storage",
+        "Difficulty": "Medium"
+    },
+
+    {
+        "Question": "Which RAID level is best for high read and write performance with redundancy?",
+        "Options": ["RAID 0","RAID 1", "RAID 5", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Hard"
+    },
+
+    {
+        "Question": "Which technology is typically easier to set up and manage, NAS or SAN",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Easy"
+    },
+
+    {
+        "Question": "Which storage solution provides faster data access, NAS or SAN?",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Medium"
+    },
+
+    {
+        "Question": "Which RAID level would you choose for a system requiring high availability and redundancy",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Hard"
+    }
+
+]
+
+class QuizApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+        self.current_question_index = 0
+        self.asked_questions = []
+        self.correct_answers = 0
+        self.incorrect_answers = 0
+        self.load_questions()
+
+    def initUI(self):
+        self.layout = QVBoxLayout()
+
+        self.question_label = QLabel(self)
+        self.layout.addWidget(self.question_label)
+
+        self.option_button = []
+        for i in range(5):
+            btn = QPushButton(self)
+            btn.clicked.connect(self.check_answer)
+            self.layout.addWidget(btn)
+            self.option_button.append(btn)
+
+        self.setLayout(self.layout)
+        self.setWindowTitle("7.1.5 Question")
+        self.setGeometry(100, 100, 400, 300)
+
+    def load_questions(self):
+        if len(self.asked_questions) == len(RAID_Questions_7_1_5):
+            QMessageBox.information(self, "Completed", "You have answerd all the questions!")
+            self.show_completion_message()
+            return
+
+        while True:
+            question_index = random.randint(0, len(RAID_Questions_7_1_5) - 1)
+            if question_index not in self.asked_questions:
+                self.asked_questions.append(question_index)
+                self.current_question = RAID_Questions_7_1_5[question_index]
+                break
+
+        self.question_label.setText(self.current_question["Question"])
+        difficulty = self.current_question.get("Difficulty", "Easy")
+        if difficulty == "Easy":
+            self.question_label.setStyleSheet("background-color: lightgreen;")
+        elif difficulty == "Medium":
+            self.question_label.setStyleSheet("background-color: yellow;")
+        else:
+            self.question_label.setStyleSheet("background-color: red;")
+
+        all_options = self.current_question["Options"]
+        random.shuffle(all_options)
+
+        for i, option in enumerate(all_options):
+            self.option_button[i].setText(option)
+            self.option_button[i].setVisible(True)
+
+        for j in range(len(all_options), len(self.option_button)):
+            self.option_button[j].setVisible(False)
+
+    def show_completion_message(self):
+        QMessageBox.information(self, "Completed", f"You have answerd all the questions!\nCorrect Answers: {self.correct_answers}\nIncorrect Answers: {self.incorrect_answers}")
+
+    def check_answer(self):
+        sender = self.sender()
+        chosen_answer = sender.text()
+
+        if chosen_answer == self.current_question["Answer"]:
+            QMessageBox.information(self, "Correct", "Well done, that is the correct answer!")
+            self.correct_answers += 1
+        else:
+            QMessageBox.warning(self,"Wrong", f"Wrong answer. The correct answer is {self.current_question["Answer"]}")
+            self.incorrect_answers += 1
+
+        self.load_questions()
+
+def main():
+    app = QApplication(sys.argv)
+    ex = QuizApp()
+    ex.show()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
