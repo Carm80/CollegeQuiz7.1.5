@@ -1,0 +1,280 @@
+import sys
+import random
+
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTextEdit, QSpacerItem, QSizePolicy
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import QTimer
+
+# RAID (7.1) 7.1.5 # AI Written questions
+RAID_Questions_7_1_5 = [
+
+    {
+        "Question": "Witch RAID level is known for stripping without redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 0",
+        "Difficulty": "Easy",
+        "explanation": "RAID 0 offers striping, which splits data across multiple disks. However, it does not provide redundancy, meaning if one disk fails, all data is lost."
+    },
+
+    {
+        "Question": "Witch RAID level mirrors data across multiple disks for redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 1",
+        "Difficulty": "Easy",
+        "explanation": "RAID 1 mirrors data, creating exact copies on multiple disks. This provides redundancy since if one disk fails, the data can still be accessed from another."
+    },
+
+    {
+        "Question": "Witch RAID level offers striping with parity for fault tolerance",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Medium",
+        "explanation": "RAID 5 combines striping with parity, distributing parity information across all disks. This allows data to be reconstructed in case of a single disk failure."
+    },
+
+    {
+        "Question": "What RAID level combines both striping and mirroring?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Medium",
+        "explanation": "RAID 10 combines striping (RAID 0) and mirroring (RAID 1). It provides both high performance and redundancy, but requires a minimum of four disks."
+    },
+
+    {
+        "Question": "What is a key feature of Network Attached Storage (NAS)?",
+        "Options": ["Directly attached to server", "Uses file-level storage", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses file-level storage",
+        "Difficulty": "Easy",
+        "explanation": "NAS devices use file-level storage, meaning they store and serve files over a network. They are directly connected to the network, not to a specific server."
+    },
+
+    {
+        "Question": "What is a key feature of Storage Area Network (SAN)?",
+        "Options": ["Uses file-level storage", "Directly attached to server", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses block-level storage",
+        "Difficulty": "Medium",
+        "explanation": "SANs use block-level storage, providing high-speed access to disk blocks over a network. They are typically used for mission-critical applications that require fast access to large amounts of data."
+    },
+
+    {
+        "Question": "Which RAID level is best for high read and write performance with redundancy?",
+        "Options": ["RAID 0","RAID 1", "RAID 5", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Hard",
+        "explanation": "RAID 10 combines the benefits of RAID 0 (high performance) and RAID 1 (redundancy), making it suitable for applications that require both."
+    },
+
+    {
+        "Question": "Which technology is typically easier to set up and manage, NAS or SAN",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Easy",
+        "explanation": "NAS is typically easier to set up and manage compared to SAN, as it requires less specialized knowledge and can be used by smaller organizations without a dedicated IT team."
+    },
+
+    {
+        "Question": "Which storage solution provides faster data access, NAS or SAN?",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Medium",
+        "explanation": "SAN generally provides faster data access compared to NAS, as it uses high-speed networking technologies and protocols designed for enterprise-level storage."
+    },
+
+    {
+        "Question": "Which RAID level would you choose for a system requiring high availability and redundancy",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Hard",
+        "explanation": "RAID 5 offers a good balance of availability, redundancy, and storage efficiency. It uses striping with parity, providing fault tolerance and allowing data recovery from a single disk failure."
+    }
+
+]
+
+class QuizApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+        self.current_question_index = 0
+        self.asked_questions = []
+        self.correct_answers = 0
+        self.incorrect_answers = 0
+        self.load_questions()
+
+    def initUI(self):
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #F0F4F8;
+            }
+            QLabel{
+                font-family: Arial, sans-serif;
+                color: #333;
+            }
+            QPushButton{
+                font-family: Arial, sans-serif;
+                border-radius: 10px;
+                padding: 10px;
+                color: #FFF;
+                background-color: #0056b3;
+                border: none;
+                margin: 5px;
+                transition: background-color 0.3s;
+            }
+            QPushButton:hover {
+                background-color: #0056b3;
+            }
+            QTextEdit{
+                font-family: Arial, sans-serif;
+                border: 1px solid #CCC;
+                border-radius: 5px;
+                padding: 10px
+                background-color: #FFF;
+                margin: 10px 0;
+            }
+        """)
+
+
+        main_layout = QHBoxLayout() ## Main layout to hold question and explanation
+
+        question_layout = QVBoxLayout()
+        difficulty_layout = QHBoxLayout()
+
+        self.difficulty_label = QLabel(self)
+        self.difficulty_label.setStyleSheet("font-size: 28px; font-weight: bold; margin-bottom: 10px;")
+        difficulty_layout.addWidget(self.difficulty_label)
+
+        self.answer_button = QPushButton("Answer", self)
+        self.answer_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.answer_button.clicked.connect(self.show_answer)
+        difficulty_layout.addWidget(self.answer_button)
+
+        self.explanation_button = QPushButton("Show Explanation", self)
+        self.explanation_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.explanation_button.clicked.connect(self.show_explanation)
+        difficulty_layout.addWidget(self.explanation_button)
+
+        question_layout.addLayout(difficulty_layout)
+
+        self.question_label = QLabel(self)
+        self.question_label.setWordWrap(True)
+        self.question_label.setStyleSheet("font-size: 24px; background-color: #E9F0FA; border: 1px solid #CCC; border-radius: 10px; padding: 10px; margin-bottom: 20px;")
+        question_layout.addWidget(self.question_label)
+
+        #Adding buttons for the answer option
+        self.option_button = []
+        for i in range(5):
+            btn = QPushButton(self)
+            btn.setStyleSheet("font-size: 24px; height: 50px")
+            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+            btn.clicked.connect(self.check_answer)
+            question_layout.addWidget(btn)
+            self.option_button.append(btn)
+
+        main_layout.addLayout(question_layout)
+
+        right_layout = QVBoxLayout()
+
+        self.explanation_text = QTextEdit(self)
+        self.explanation_text.setReadOnly(True)
+        self.explanation_text.setStyleSheet("font-size: 26px; max-height: 250px;")
+        right_layout.addWidget(self.explanation_text)
+
+        right_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        #this will not show up but it is needed kinda
+        self.feedback_label = QLabel(self)
+        self.feedback_label.setStyleSheet("font-size: 48px; color: #007BFF; text-align: center; margin-top: 10px;")
+        self.feedback_label.setAlignment(Qt.AlignCenter)
+        self.feedback_label.setWordWrap(True)
+        right_layout.addWidget(self.feedback_label)
+        right_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.answer_text = QTextEdit(self)
+        self.answer_text.setReadOnly(True)
+        self.answer_text.setStyleSheet("font-size: 26px; max-height: 150px;")
+        right_layout.addWidget(self.answer_text)
+
+        main_layout.addLayout(right_layout)
+
+        self.setLayout(main_layout)
+        self.setWindowTitle("7.1.5 Question")
+        self.setGeometry(0, 0, 1000, 900)
+
+    def load_questions(self):
+        #Clear the last question
+        self.feedback_label.clear()
+        self.explanation_text.clear()
+        self.answer_text.clear()
+        if len(self.asked_questions) == len(RAID_Questions_7_1_5):
+            self.show_completion_message()
+            return
+
+        # select a random question , hopefully has not been asked yet until all done
+        while True:
+            question_index = random.randint(0, len(RAID_Questions_7_1_5) - 1)
+            if question_index not in self.asked_questions:
+                self.asked_questions.append(question_index)
+                self.current_question = RAID_Questions_7_1_5[question_index]
+                break
+
+        self.question_label.setText(self.current_question["Question"])
+        difficulty = self.current_question.get("Difficulty", "Easy")
+        if difficulty == "Easy":
+            self.question_label.setStyleSheet("background-color: lightgreen; font-size: 30px;")
+            self.difficulty_label.setText("Easy")
+        elif difficulty == "Medium":
+            self.question_label.setStyleSheet("background-color: yellow; font-size: 30px;")
+            self.difficulty_label.setText("Medium")
+        else:
+            self.question_label.setStyleSheet("background-color: red; font-size: 30px;")
+            self.difficulty_label.setText("Hard")
+
+        # Shuffle the options
+        all_options = self.current_question["Options"]
+        random.shuffle(all_options)
+
+        for i, option in enumerate(all_options):
+            self.option_button[i].setText(option)
+            self.option_button[i].setVisible(True)
+
+        for j in range(len(all_options), len(self.option_button)):
+            self.option_button[j].setVisible(False)
+
+    # Displaying explanation for the question
+    def show_explanation(self):
+        self.explanation_text.setPlainText(self.current_question.get("explanation", "No explanation avalible"))
+
+    def show_answer(self):
+        self.answer_text.setPlainText(f"The correct answer is {self.current_question["Answer"]}")
+
+    #Check if answer is correct
+    def check_answer(self):
+        sender = self.sender()
+        chosen_answer = sender.text()
+
+        if chosen_answer == self.current_question["Answer"]:
+            self.correct_answers += 1
+            self.feedback_label.setText("Correct! Well Done")
+            self.feedback_label.setStyleSheet("color: green; font-size: 48px;")
+        else:
+            self.incorrect_answers += 1
+            self.feedback_label.setText(f"Wrong answer. The correct answer is {self.current_question["Answer"]}")
+            self.feedback_label.setStyleSheet("color: red; font-size: 48px;")
+
+        self.show_explanation()
+
+        QTimer.singleShot(2000, self.load_questions)
+
+    def show_completion_message(self):
+        self.feedback_label.setText(f"Quiz completed! Correct Answers: {self.correct_answers} Incorrect Answers: {self.incorrect_answers}")
+        self.feedback_label.setStyleSheet("color: blue; font-size: 48px;")
+
+def main():
+    app = QApplication(sys.argv)
+    ex = QuizApp()
+    ex.show()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
