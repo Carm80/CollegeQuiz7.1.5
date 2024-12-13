@@ -1,0 +1,231 @@
+import sys
+import random
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTextEdit, QSizePolicy, QGridLayout, QSpacerItem
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QTextOption
+
+# Import the question lists from Main.py
+from Main import RAID_Questions_7_1_5, Types_Of_Physical_computer_System7_1_1
+
+class QuizApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.questions = []
+        self.initUI()
+        self.current_question_index = 0
+        self.asked_questions = []
+        self.correct_answers = 0
+        self.incorrect_answers = 0
+
+    def set_questions(self, questions):
+        self.questions = questions
+
+    def initUI(self):
+        main_layout = QHBoxLayout(self)  # Changed to QHBoxLayout to split screen into left and right
+
+        # Initialize selection_layout_widget and grid layout
+        self.selection_layout_widget = QWidget(self)
+        self.selection_layout = QGridLayout()
+        self.selection_layout_widget.setLayout(self.selection_layout)
+        self.selection_layout.setSpacing(10)
+
+        # Style for the first window buttons
+        button_style_first_window = """
+            font-size: 28px; 
+            padding: 15px; 
+            background-color: #1E90FF; 
+            color: white; 
+            border-radius: 15px;
+        """
+
+        self.raid_button = QPushButton("RAID Questions")
+        self.raid_button.setStyleSheet(button_style_first_window)
+        self.raid_button.clicked.connect(lambda: self.startQuiz("RAID Questions"))
+        self.selection_layout.addWidget(self.raid_button, 0, 0)
+
+        self.physical_button = QPushButton("Types of Physical Computer Systems")
+        self.physical_button.setStyleSheet(button_style_first_window)
+        self.physical_button.clicked.connect(lambda: self.startQuiz("Types of Physical Computer Systems"))
+        self.selection_layout.addWidget(self.physical_button, 0, 1)
+
+        self.placeholder_1 = QPushButton("PlaceHolder 1")
+        self.placeholder_1.setStyleSheet(button_style_first_window)
+        self.placeholder_1.clicked.connect(self.close)
+        self.selection_layout.addWidget(self.placeholder_1, 1, 0)
+
+        self.placeholder_2 = QPushButton("Exit")
+        self.placeholder_2.setStyleSheet(button_style_first_window)
+        self.placeholder_2.clicked.connect(self.close)
+        self.selection_layout.addWidget(self.placeholder_2, 1, 1)
+
+        for i in range(self.selection_layout.count()):
+            widget = self.selection_layout.itemAt(i).widget()
+            widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        main_layout.addWidget(self.selection_layout_widget)  # Add the selection layout widget to the main layout
+
+        # Quiz layout container
+        self.quiz_layout_widget = QWidget(self)
+        self.quiz_layout = QHBoxLayout(self.quiz_layout_widget)  # Changed to QHBoxLayout to split left and right
+        self.quiz_layout_widget.setVisible(False)
+        main_layout.addWidget(self.quiz_layout_widget)
+
+        # Left side layout for difficulty label, question, and options
+        left_layout = QVBoxLayout()
+
+        self.difficulty_label = QLabel(self)
+        self.difficulty_label.setStyleSheet("font-size: 28px; color: darkgreen; padding: 10px;")
+        left_layout.addWidget(self.difficulty_label)
+
+        self.question_label = QLabel(self)
+        self.question_label.setWordWrap(True)
+        self.question_label.setStyleSheet("font-size: 66px; color: darkgreen; padding: 10px; background-color: lightyellow; margin-top: 5px;")  # Tripled the font size
+        self.question_label.setMaximumHeight(200)  # Constrain height to ensure it doesn't push other elements
+        self.question_label.setMaximumWidth(600)  # Constrain width to ensure it doesn't cross the middle
+        left_layout.addWidget(self.question_label)
+
+        self.option_button = []
+        for i in range(5):
+            btn = QPushButton(self)
+            btn.setStyleSheet("font-size: 22px; padding: 10px; background-color: #1E90FF; color: white; border-radius: 15px; margin-top: 5px;")
+            btn.clicked.connect(self.check_answer)
+            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)  # Constrain size
+            left_layout.addWidget(btn)
+            self.option_button.append(btn)
+
+        left_layout.setStretchFactor(self.question_label, 0)
+        left_layout.setStretchFactor(self.option_button[0], 1)
+
+        self.quiz_layout.addLayout(left_layout)
+
+        # Right side layout for buttons, feedback, explanation, and answer
+        right_layout = QVBoxLayout()
+        button_layout = QHBoxLayout()  # Added layout for buttons
+
+        self.answer_button = QPushButton("Answer", self)
+        self.answer_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.answer_button.setStyleSheet("font-size: 22px; padding: 10px; background-color: #1E90FF; color: white; border-radius: 15px;")
+        self.answer_button.clicked.connect(self.show_answer)
+        button_layout.addWidget(self.answer_button)
+
+        self.explanation_button = QPushButton("Show Explanation", self)
+        self.explanation_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.explanation_button.setStyleSheet("font-size: 22px; padding: 10px; background-color: #1E90FF; color: white; border-radius: 15px;")
+        self.explanation_button.clicked.connect(self.show_explanation)
+        button_layout.addWidget(self.explanation_button)
+
+        right_layout.addLayout(button_layout)  # Added button layout to right layout
+
+        right_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.feedback_label = QLabel(self)
+        self.feedback_label.setAlignment(Qt.AlignCenter)
+        self.feedback_label.setWordWrap(True)
+        self.feedback_label.setStyleSheet("font-size: 28px; color: darkgreen; padding: 10px;")
+        right_layout.addWidget(self.feedback_label)
+
+        self.explanation_text = QTextEdit(self)
+        self.explanation_text.setReadOnly(True)
+        self.explanation_text.setWordWrapMode(QTextOption.WordWrap)  # Enable text wrapping
+        self.explanation_text.setStyleSheet("font-size: 28px; color: darkgreen; padding: 10px; min-height: 200px;")  # Make the explanation area taller
+        right_layout.addWidget(self.explanation_text)
+
+        self.answer_text = QTextEdit(self)
+        self.answer_text.setReadOnly(True)
+        self.answer_text.setWordWrapMode(QTextOption.WordWrap)  # Enable text wrapping
+        self.answer_text.setStyleSheet("font-size: 28px; color: darkgreen; padding: 10px; min-height: 200px;")  # Make the answer area taller
+        right_layout.addWidget(self.answer_text)
+
+        self.quiz_layout.addLayout(right_layout)
+
+        self.setLayout(main_layout)
+        self.setWindowTitle("Study Quiz App")
+        self.setGeometry(0, 0, 1000, 900)
+
+    def startQuiz(self, category):
+        if category == "RAID Questions":
+            self.set_questions(RAID_Questions_7_1_5)
+        elif category == "Types of Physical Computer Systems":
+            self.set_questions(Types_Of_Physical_computer_System7_1_1)
+
+        self.selection_layout_widget.setVisible(False)
+        self.quiz_layout_widget.setVisible(True)
+        self.load_questions()
+
+    def load_questions(self):
+        self.feedback_label.clear()
+        self.explanation_text.clear()
+        self.answer_text.clear()
+        if len(self.asked_questions) == len(self.questions):
+            self.show_completion_message()
+            return
+
+        while True:
+            question_index = random.randint(0, len(self.questions) - 1)
+            if question_index not in self.asked_questions:
+                self.asked_questions.append(question_index)
+                self.current_question = self.questions[question_index]
+                break
+
+        self.question_label.setText(self.current_question["Question"])
+        difficulty = self.current_question.get("Difficulty", "Easy")
+        if difficulty == "Easy":
+            self.question_label.setStyleSheet("background-color: lightgreen; padding: 10px;")
+            self.difficulty_label.setText("Easy")
+        elif difficulty == "Medium":
+            self.question_label.setStyleSheet("background-color: yellow; padding: 10px;")
+            self.difficulty_label.setText("Medium")
+        else:
+            self.question_label.setStyleSheet("background-color: red; color: white; padding: 10px;")
+            self.difficulty_label.setText("Hard")
+
+        all_options = self.current_question["Options"]
+        random.shuffle(all_options)
+
+        for i, option in enumerate(all_options):
+            self.option_button[i].setText(option)
+            self.option_button[i].setVisible(True)
+
+        for j in range(len(all_options), len(self.option_button)):
+            self.option_button[j].setVisible(False)
+
+    def show_explanation(self):
+        explanation = self.current_question.get("Explanation", "No explanation available.")
+        if explanation.strip() == "":
+            explanation = "No explanation available."
+        self.explanation_text.setPlainText(explanation)
+
+    def show_answer(self):
+        self.answer_text.setPlainText(f"The correct answer is {self.current_question['Answer']}.")
+
+    def check_answer(self):
+        sender = self.sender()
+        chosen_answer = sender.text()
+        if chosen_answer == self.current_question["Answer"]:
+            self.correct_answers += 1
+            self.feedback_label.setText("Correct! Well Done")
+            self.feedback_label.setStyleSheet("color: green;")
+        else:
+            self.incorrect_answers += 1
+            self.feedback_label.setText(f"Wrong answer. The correct answer is {self.current_question['Answer']}.")
+            self.feedback_label.setStyleSheet("color: red;")
+
+        self.show_explanation()
+
+        QTimer.singleShot(2000, self.load_questions)
+
+    def show_completion_message(self):
+        self.feedback_label.setText(
+            f"Quiz completed! Correct Answers: {self.correct_answers}, Incorrect Answers: {self.incorrect_answers}")
+        self.feedback_label.setStyleSheet("color: blue;")
+
+
+def main():
+    app = QApplication(sys.argv)
+    ex = QuizApp()
+    ex.show()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
