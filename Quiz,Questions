@@ -1,0 +1,200 @@
+Types_Of_Physical_computer_System7_1_1 = [
+
+    {
+        "Question": "What are the primary differences between a personal computer and a mobile device in terms of hardware capabilities",
+        "Options": ["Size and portability","Processing power","Battery life","All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Medium",
+        "Explanation": "Personal computers typically have higher processing power, while mobile devices prioritize portability and battery efficiency",
+    },
+
+    {
+        "Question": "How do operating system vary across personal computers, mobile devices, and servers?",
+        "Options": ["They use entirely different kernels", "They are optimised for different hardware and use cases", "They have identical interfaces", "They are interchangeable"],
+        "Answer": "They are optimised for different hardware and use cases",
+        "Difficulty": "Medium",
+        "Explanation": "Operating systems are tailored to meet the specific requirements of the hardware and intended functionality of the device",
+    },
+
+    {
+        "Question": "What are the main components of a personal computer, and how do they contribute to its functionality?",
+        "Options": ["Processor, Memory, and input devices", "Processor and screen only", "Network card only", "None of the above"],
+        "Answer": "Processor, Memory, and input devices",
+        "Difficulty": "Easy",
+        "Explanation": "A personal computer's functionality depends on components like the processor for computation, memory for data storage, and input/output devices for interaction",
+    },
+
+    {
+        "Question": "How does the performance of a laptop compare to a desktop PC for similar tasks?",
+        "Options": ["Laptops always perform better", "Desktops are more powerful but less portable", "Performance is identical", "Desktops are obsolete"],
+        "Answer": "Desktops are obsolete",
+        "Difficulty": "Medium",
+        "Explanation": "Desktops often have more powerful hardware but lack the portability of laptops",
+    },
+
+    {
+        "Question": "What are the typical use cases for personal computer compared to other types of computer systems",
+        "Options": ["Gaming and professional tasks", "Only social media", "Exclusively server management", "IoT device control"],
+        "Answer": "Gaming and professional tasks",
+        "Difficulty": "Medium",
+        "Explanation": "Personal computers are versatile and can handle a range of tasks including gaming, professional work, and general computing",
+    },
+
+    {
+        "Question": "What features make mobile devices more portable and energy-efficient than personal computers?",
+        "Options": ["Smaller screen and efficient processors", "Higher processing power", "Desktop-level hardware", "Larger batteries"],
+        "Answer": "Smaller screens and efficient processors",
+        "Difficulty": "Easy",
+        "Explanation": "Mobile devices prioritise compactness and energy efficiency though smaller screens and processors optimised for low power consumption",
+    },
+
+    {
+        "Question": "How do mobile processors differ from those used in personal computers?",
+        "Options": ["Mobile processors are faster", "They are optimised for low power usage", "They are identical", "Mobile processors are larger"],
+        "Answer": "They are optimised for low power usage",
+        "Difficulty": "Medium",
+        "Explanation": "Mobile processors are designed to consume less power to extend battery life while maintaining adequate performance",
+    },
+
+    {
+        "Question": "What role does touchscreen technology play in the usability of mobile devices?",
+        "Options": ["It enhances portability", "It simplifies user interaction", "It replaces physical keyboards", "All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Easy",
+        "Explanation": "Touchscreens make mobile devices more intuitive and versatile by eliminating the need for a physical keyboard and enhancing portability",
+    },
+
+    {
+        "Question": "What distinguishes a server from a personal computer in terms of hardware and software configuration?",
+        "Options": ["All of the above", "Servers handle concurrent requests", "Servers have specialized operating systems", "Servers are designed for multitasking"],
+        "Answer": "All of the above",
+        "Difficulty": "Medium",
+        "Explanation": "Servers are designed to handle high workloads and concurrent user requests with specialized hardware and operating systems",
+    },
+
+    {
+        "Question": "How do servers handle multiple simultaneous requests, and why is it important for their use?",
+        "Options": ["By using powerful processors", "Through multi-threading and efficient networking", "By prioritising one request a a time", "Servers do not handle simultaneous requests"],
+        "Answer": "Through multi-threading and efficient networking",
+        "Difficulty": "Medium",
+        "Explanation": "Servers are designed to handle multiple requests concurrently, which is essential for tasks like hosting websites and managing databases",
+    },
+
+    {
+        "Question": "What are some common servers operating systems, and how do they differ from those used in personal computers?",
+        "Options": ["Windows Server, Linux distribution", "Android, iOS", "macOS and ChromeOS", "Embedded OS only"],
+        "Answer": "Windows Server, Linux distributions",
+        "Difficulty": "Medium",
+        "Explanation": "Servers operating systems are optimised for stability, security, and handling multiple users, unlike personal computer OS designed for individual user",
+    },
+
+    {
+        "Question": "What features make a device 'Smart' or 'internet-enabled'?",
+        "Options": ["The ability to connect to Wi-Fi or mobile networks", "Sensors and data-processing capabilities", "Integration with IoT ecosystems", "All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Easy",
+        "Explanation": "Smart devices integrate sensors, connectivity, and processing to perform tasks and communicate with other devices",
+    },
+
+    {
+        "Question": "How do smart devices use cloud computing to enhance functionality?",
+        "Options": ["By outsourcing data storage and processing", "By working offline exclusively", "Through Bluetooth-only communication", "By being standalone devices"],
+        "Answer": "By outsourcing data storage and processing",
+        "Difficulty": "Medium",
+        "Explanation": "Cloud computing allows smart devices to offload intensive tasks and storedata remotely, reducing hardware constraints",
+    },
+
+    {
+        "Question": "How do personal computers and servers differ in terms of scalability?",
+        "Options": ["Servers are built to scale horizontally and vertically", "PCs can scale infinitely", "Scaling is irrelevant for both", "Servers and PCs scale identically"],
+        "Answer": "Servers are built to scale horizontally and vertically",
+        "Difficulty": "Hard",
+        "Explanation": "Servers are designed with scalability in mind to accommodate growing workloads, whereas PCs have limited scalability options",
+    },
+
+
+]
+
+RAID_Questions_7_1_5 = [
+
+    {
+        "Question": "Witch RAID level is known for stripping without redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 0",
+        "Difficulty": "Easy",
+        "Explanation": "RAID 0 offers striping, which splits data across multiple disks. However, it does not provide redundancy, meaning if one disk fails, all data is lost."
+    },
+
+    {
+        "Question": "Witch RAID level mirrors data across multiple disks for redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 1",
+        "Difficulty": "Easy",
+        "Explanation": "RAID 1 mirrors data, creating exact copies on multiple disks. This provides redundancy since if one disk fails, the data can still be accessed from another."
+    },
+
+    {
+        "Question": "Witch RAID level offers striping with parity for fault tolerance",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Medium",
+        "Explanation": "RAID 5 combines striping with parity, distributing parity information across all disks. This allows data to be reconstructed in case of a single disk failure."
+    },
+
+    {
+        "Question": "What RAID level combines both striping and mirroring?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Medium",
+        "Explanation": "RAID 10 combines striping (RAID 0) and mirroring (RAID 1). It provides both high performance and redundancy, but requires a minimum of four disks."
+    },
+
+    {
+        "Question": "What is a key feature of Network Attached Storage (NAS)?",
+        "Options": ["Directly attached to server", "Uses file-level storage", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses file-level storage",
+        "Difficulty": "Easy",
+        "Explanation": "NAS devices use file-level storage, meaning they store and serve files over a network. They are directly connected to the network, not to a specific server."
+    },
+
+    {
+        "Question": "What is a key feature of Storage Area Network (SAN)?",
+        "Options": ["Uses file-level storage", "Directly attached to server", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses block-level storage",
+        "Difficulty": "Medium",
+        "Explanation": "SANs use block-level storage, providing high-speed access to disk blocks over a network. They are typically used for mission-critical applications that require fast access to large amounts of data."
+    },
+
+    {
+        "Question": "Which RAID level is best for high read and write performance with redundancy?",
+        "Options": ["RAID 0","RAID 1", "RAID 5", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Hard",
+        "Explanation": "RAID 10 combines the benefits of RAID 0 (high performance) and RAID 1 (redundancy), making it suitable for applications that require both."
+    },
+
+    {
+        "Question": "Which technology is typically easier to set up and manage, NAS or SAN",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Easy",
+        "Explanation": "NAS is typically easier to set up and manage compared to SAN, as it requires less specialized knowledge and can be used by smaller organizations without a dedicated IT team."
+    },
+
+    {
+        "Question": "Which storage solution provides faster data access, NAS or SAN?",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Medium",
+        "Explanation": "SAN generally provides faster data access compared to NAS, as it uses high-speed networking technologies and protocols designed for enterprise-level storage."
+    },
+
+    {
+        "Question": "Which RAID level would you choose for a system requiring high availability and redundancy",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Hard",
+        "Explanation": "RAID 5 offers a good balance of availability, redundancy, and storage efficiency. It uses striping with parity, providing fault tolerance and allowing data recovery from a single disk failure."
+    }
+
+]
