@@ -1,0 +1,481 @@
+Types_Of_Physical_computer_System7_1_1 = [
+
+    {
+        "Question": "What are the primary differences between a personal computer and a mobile device in terms of hardware capabilities",
+        "Options": ["Size and portability","Processing power","Battery life","All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Medium",
+        "Explanation": "Personal computers typically have higher processing power, while mobile devices prioritize portability and battery efficiency",
+    },
+
+    {
+        "Question": "How do operating system vary across personal computers, mobile devices, and servers?",
+        "Options": ["They use entirely different kernels", "They are optimised for different hardware and use cases", "They have identical interfaces", "They are interchangeable"],
+        "Answer": "They are optimised for different hardware and use cases",
+        "Difficulty": "Medium",
+        "Explanation": "Operating systems are tailored to meet the specific requirements of the hardware and intended functionality of the device",
+    },
+
+    {
+        "Question": "What are the main components of a personal computer, and how do they contribute to its functionality?",
+        "Options": ["Processor, Memory, and input devices", "Processor and screen only", "Network card only", "None of the above"],
+        "Answer": "Processor, Memory, and input devices",
+        "Difficulty": "Easy",
+        "Explanation": "A personal computer's functionality depends on components like the processor for computation, memory for data storage, and input/output devices for interaction",
+    },
+
+    {
+        "Question": "How does the performance of a laptop compare to a desktop PC for similar tasks?",
+        "Options": ["Laptops always perform better", "Desktops are more powerful but less portable", "Performance is identical", "Desktops are obsolete"],
+        "Answer": "Desktops are obsolete",
+        "Difficulty": "Medium",
+        "Explanation": "Desktops often have more powerful hardware but lack the portability of laptops",
+    },
+
+    {
+        "Question": "What are the typical use cases for personal computer compared to other types of computer systems",
+        "Options": ["Gaming and professional tasks", "Only social media", "Exclusively server management", "IoT device control"],
+        "Answer": "Gaming and professional tasks",
+        "Difficulty": "Medium",
+        "Explanation": "Personal computers are versatile and can handle a range of tasks including gaming, professional work, and general computing",
+    },
+
+    {
+        "Question": "What features make mobile devices more portable and energy-efficient than personal computers?",
+        "Options": ["Smaller screen and efficient processors", "Higher processing power", "Desktop-level hardware", "Larger batteries"],
+        "Answer": "Smaller screens and efficient processors",
+        "Difficulty": "Easy",
+        "Explanation": "Mobile devices prioritise compactness and energy efficiency though smaller screens and processors optimised for low power consumption",
+    },
+
+    {
+        "Question": "How do mobile processors differ from those used in personal computers?",
+        "Options": ["Mobile processors are faster", "They are optimised for low power usage", "They are identical", "Mobile processors are larger"],
+        "Answer": "They are optimised for low power usage",
+        "Difficulty": "Medium",
+        "Explanation": "Mobile processors are designed to consume less power to extend battery life while maintaining adequate performance",
+    },
+
+    {
+        "Question": "What role does touchscreen technology play in the usability of mobile devices?",
+        "Options": ["It enhances portability", "It simplifies user interaction", "It replaces physical keyboards", "All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Easy",
+        "Explanation": "Touchscreens make mobile devices more intuitive and versatile by eliminating the need for a physical keyboard and enhancing portability",
+    },
+
+    {
+        "Question": "What distinguishes a server from a personal computer in terms of hardware and software configuration?",
+        "Options": ["All of the above", "Servers handle concurrent requests", "Servers have specialized operating systems", "Servers are designed for multitasking"],
+        "Answer": "All of the above",
+        "Difficulty": "Medium",
+        "Explanation": "Servers are designed to handle high workloads and concurrent user requests with specialized hardware and operating systems",
+    },
+
+    {
+        "Question": "How do servers handle multiple simultaneous requests, and why is it important for their use?",
+        "Options": ["By using powerful processors", "Through multi-threading and efficient networking", "By prioritising one request a a time", "Servers do not handle simultaneous requests"],
+        "Answer": "Through multi-threading and efficient networking",
+        "Difficulty": "Medium",
+        "Explanation": "Servers are designed to handle multiple requests concurrently, which is essential for tasks like hosting websites and managing databases",
+    },
+
+    {
+        "Question": "What are some common servers operating systems, and how do they differ from those used in personal computers?",
+        "Options": ["Windows Server, Linux distribution", "Android, iOS", "macOS and ChromeOS", "Embedded OS only"],
+        "Answer": "Windows Server, Linux distributions",
+        "Difficulty": "Medium",
+        "Explanation": "Servers operating systems are optimised for stability, security, and handling multiple users, unlike personal computer OS designed for individual user",
+    },
+
+    {
+        "Question": "What features make a device 'Smart' or 'internet-enabled'?",
+        "Options": ["The ability to connect to Wi-Fi or mobile networks", "Sensors and data-processing capabilities", "Integration with IoT ecosystems", "All of the above"],
+        "Answer": "All of the above",
+        "Difficulty": "Easy",
+        "Explanation": "Smart devices integrate sensors, connectivity, and processing to perform tasks and communicate with other devices",
+    },
+
+    {
+        "Question": "How do smart devices use cloud computing to enhance functionality?",
+        "Options": ["By outsourcing data storage and processing", "By working offline exclusively", "Through Bluetooth-only communication", "By being standalone devices"],
+        "Answer": "By outsourcing data storage and processing",
+        "Difficulty": "Medium",
+        "Explanation": "Cloud computing allows smart devices to offload intensive tasks and storedata remotely, reducing hardware constraints",
+    },
+
+    {
+        "Question": "How do personal computers and servers differ in terms of scalability?",
+        "Options": ["Servers are built to scale horizontally and vertically", "PCs can scale infinitely", "Scaling is irrelevant for both", "Servers and PCs scale identically"],
+        "Answer": "Servers are built to scale horizontally and vertically",
+        "Difficulty": "Hard",
+        "Explanation": "Servers are designed with scalability in mind to accommodate growing workloads, whereas PCs have limited scalability options",
+    },
+
+
+]
+
+Hardware_Peripherals_7_1_2 = [
+
+    {
+        "Question": "What is the primary function of an input device in a computer system",
+        "Options": ["To provide data input to the computer", "To display information from the computer", "To store data permanently", "To connect to the internet"],
+        "Answer": "To provide data input to the computer",
+        "Difficulty": "Easy",
+        "Explanation": "Input devices allow users to input data and commands into the computer for processing",
+    },
+
+    {
+        "Question": "What is the role of an output device in a computer system",
+        "Options": ["To display or produce information from the computer", "To connect to other devices", "To store data temporarily", "To provide data input to the computer"],
+        "Answer": "To display ot produce information from the computer",
+        "Difficulty": "Easy",
+        "Explanation": "Output devices present data and information processed by the computer to the user, such as via screens or printers",
+    },
+
+    {
+        "Question": "What is the CPU responsible for in a PC",
+        "Options": ["Executing instructions and processing data", "Storing data permanently", "Connecting to external devices", "Cooling the system"],
+        "Answer": "Executing instructions and processing data",
+        "Difficulty": "Easy",
+        "Explanation": "The CPU is the brain of the computer, responsible for executing instructions and processing data from software programs",
+    },
+
+    {
+        "Question": "What is the main purpose of RAM in a computer system",
+        "Options": ["To store data temporarily for quick access", "To provide permanent storage", "To display information", "To connect to external devices"],
+        "Answer": "To store data temporarily for quick access",
+        "Difficulty": "Easy",
+        "Explanation": "RAM stores data temporarily for quick access by the CPU, enhancing system performance"
+    },
+
+    {
+        "Question": "What is the role of secondary storage in a computer system",
+        "Options": ["To provide long-term data storage", "To execute instruction", "To display graphics", "To connect peripheral devices"],
+        "Answer": "To provide long-term data storage",
+        "Difficulty": "Easy",
+        "Explanation": "Secondary storage devices provide long-term data storage, retaining data even when the computer is turned off"
+    },
+
+    {
+        "Question": "How does a keyboard communicate data ro a computer",
+        "Options": ["Via USB or wireless connection", "By displaying text on the screen", "Through sound waves", "By storing data in RAM"],
+        "Answer": "Via USB or wireless connection",
+        "Difficulty": "Medium",
+        "Explanation": "Keyboards typically use USB or wireless connections to transmit input data to the computer"
+    },
+
+    {
+        "Question": "What technology does a touchscreen use to detect user input",
+        "Options": ["Capacitive or resistive technology", "Thermal sensors", "Acoustic waves", "Infrared Rays"],
+        "Answer": "Capacitive or resistive technology",
+        "Difficulty": "Medium",
+        "Explanation": "Touchscreens use capacitive or resistive technology to detect touch inputs based on changes in electrical charge or pressure"
+    },
+
+    {
+        "Question": "How does a printer create a physical representation of a digital content?",
+        "Options": ["By spraying ink or using lasers", " By projecting light", "By storing data in a file", "By sending signals to a monitor"],
+        "Answer": "By spraying ink or using lasers",
+        "Difficulty": "Medium",
+        "Explanation": "Printers create physical representations by spraying ink or using lasers on paper"
+    },
+
+    {
+        "Question": "Describe how a monitor displays images and text on the screen",
+        "Options": ["By illuminating pixels with light", "By vibrating a membrane", "By projecting sound waves", "By storing data in RAM"],
+        "Answer": "By illuminating pixels with light",
+        "Difficulty": "Medium",
+        "Explanation": "Monitors display images and text by illuminating pixels with light to create the desired visuals"
+    },
+
+    {
+        "Question": "What is the significance or a processor's clock speed?",
+        "Options": ["It represents the physical size of the processor", "It shows the amount of cache memory", "It indicates the power consumption", "It determines the number of instructions executed per second"],
+        "Answer": "It determines the number of instructions executed per second",
+        "Difficulty": "Medium",
+        "Explanation": "Clock speed, measured in GHz, indicates how many instructions a processor can execute per second, affecting overall performance"
+    },
+
+    {
+        "Question": "How does a SSD differ from a HDD",
+        "Options": ["SSD is mechanical, HDD is electronic", "SSD is heavier, HDD is lighter", "SSD uses flash memory, HDD uses spinning disks", "SSD is slower, HDD is faster"],
+        "Answer": "SSD uses flash memory, HDD uses spinning disks",
+        "Difficulty": "Medium",
+        "Explanation": "SSDs use flash memory for storage, making them faster and more durable than HDDs, which use spinning magnetic disks"
+    },
+
+    {
+        "Question": "What are the advantages of using external storage devices",
+        "Options": ["Portability and easy data transfer", "Incompatibility with most systems", "Low storage capacity", "High power consumption"],
+        "Answer": "Portability and easy data transfer",
+        "Difficulty": "Medium",
+        "Explanation": ""
+    },
+
+    {
+        "Question": "Explain the difference between single-core and multi-core processors.",
+        "Options": ["Single-core is more expensive, multi-core is cheaper", "Single-core has one processing unit, multi-core has multiple", "Single-core is faster, multi-core is slower", "Single-core uses more power, multi-core uses less"],
+        "Answer": "Single-core has one processing unit, multi-core has multiple",
+        "Difficulty": "Hard",
+        "Explanation": "Single-core processors have one processing unit, while multi-core processors have multiple units to handle parallel tasks more efficiently."
+    },
+
+    {
+        "Question": "How does a CPU execute instructions from software programs?",
+        "Options": ["By sending them to a monitor", "By printing them out", "By storing them in RAM", "By fetching, decoding, and executing instructions"],
+        "Answer": "By fetching, decoding, and executing instructions",
+        "Difficulty": "Hard",
+        "Explanation": "A CPU executes instructions through a cycle of fetching, decoding, and executing commands from software programs."
+    },
+
+    {
+        "Question": "What role does cache memory play in the functioning of a processor?",
+        "Options": ["It stores frequently used data for quick access", "It cools the processor",
+                    "It connects the processor to external devices", "It generates power for the processor"],
+        "Answer": "It stores frequently used data for quick access",
+        "Difficulty": "Hard",
+        "Explanation": "Cache memory stores frequently accessed data and instructions close to the CPU, reducing latency and speeding up processing."
+    },
+
+    {
+        "Question": "Describe the difference between DDR3 and DDR4 RAM.",
+        "Options": ["DDR3 has a lower transfer rate and voltage than DDR4", "DDR3 is newer and faster than DDR4",
+                    "DDR3 is more expensive than DDR4", "DDR3 and DDR4 are identical in performance"],
+        "Answer": "DDR3 has a lower transfer rate and voltage than DDR4",
+        "Difficulty": "Hard",
+        "Explanation": "DDR4 RAM offers higher transfer rates and lower voltage requirements compared to DDR3, resulting in better performance and efficiency."
+    },
+
+    {
+        "Question": "Explain the concept of data redundancy in RAID configurations.",
+        "Options": ["Data is duplicated across multiple drives to prevent loss", "Data is stored in one location only",
+                    "Data is deleted after being read", "Data is encrypted with a single key"],
+        "Answer": "Data is duplicated across multiple drives to prevent loss",
+        "Difficulty": "Hard",
+        "Explanation": "RAID configurations use data redundancy by duplicating data across multiple drives, ensuring data protection in case of drive failure."
+    },
+
+    {
+        "Question": "How do the northbridge and southbridge chips function on a motherboard?",
+        "Options": ["Northbridge handles high-speed communication, southbridge handles slower tasks",
+                    "Northbridge cools the CPU, southbridge cools the RAM",
+                    "Northbridge stores data, southbridge displays information",
+                    "Northbridge is external, southbridge is internal"],
+        "Answer": "Northbridge handles high-speed communication, southbridge handles slower tasks",
+        "Difficulty": "Hard",
+        "Explanation": "The northbridge chip manages high-speed communication between the CPU, RAM, and GPU, while the southbridge handles slower peripherals.",
+    },
+
+    {
+        "Question": "Explain the role of the BIOS/UEFI firmware stored on the motherboard.",
+        "Options": ["It initializes and tests hardware components during startup", "It stores user data permanently",
+                    "It provides wireless connectivity", "It cools the motherboard"],
+        "Answer": "It initializes and tests hardware components during startup",
+        "Difficulty": "Hard",
+        "Explanation": "The BIOS/UEFI firmware initializes and tests hardware components during the boot process and provides a runtime environment for the operating system.",
+    },
+
+    {
+        "Question": "What are the different types of expansion slots on a motherboard used for?",
+        "Options": ["Installing additional cards like GPUs, sound cards, and network cards", "Connecting USB devices",
+                    "Storing data temporarily", "Cooling the system"],
+        "Answer": "Installing additional cards like GPUs, sound cards, and network cards",
+        "Difficulty": "Hard",
+        "Explanation": "Expansion slots on a motherboard are used to install additional cards, such as graphics cards, sound cards, and network cards, to enhance system capabilities.",
+    },
+
+    {
+        "Question": "What are the potential consequences of inadequate cooling in a computer?",
+        "Options": ["Overheating, hardware damage, system instability",
+                    "Increased power consumption, slower performance", "Better performance, lower power usage",
+                    "Longer battery life, quieter operation"],
+        "Answer": "Overheating, hardware damage, system instability",
+        "Difficulty": "Hard",
+        "Explanation": "Inadequate cooling can lead to overheating, which may cause hardware damage and system instability, affecting overall performance and reliability.",
+    },
+
+    {
+        "Question": "Explain the significance of the TRIM command in the context of SSD performance and longevity.",
+        "Options": ["The TRIM command informs the SSD of unused data blocks, allowing for efficient garbage collection",
+                    "The TRIM command increases the read speed of the SSD",
+                    "The TRIM command encrypts data stored on the SSD", "The TRIM command is used for backing up data"],
+        "Answer": "The TRIM command informs the SSD of unused data blocks, allowing for efficient garbage collection",
+        "Difficulty": "Hard",
+        "Explanation": "The TRIM command helps SSDs manage unused data blocks, improving performance and extending the lifespan by enabling efficient garbage collection and wear leveling.",
+    },
+
+    {
+        "Question": "Explain how a capacitor and an inductor can be used in a motherboard's VRM (Voltage Regulator Module) for power delivery.",
+        "Options": ["Capacitors store and release energy, inductors regulate current flow",
+                    "Capacitors increase voltage, inductors decrease voltage",
+                    "Capacitors filter noise, inductors increase speed",
+                    "Capacitors and inductors are not used in VRMs"],
+        "Answer": "Capacitors store and release energy, inductors regulate current flow",
+        "Difficulty": "EXTREME",
+        "Explanation": "In a VRM, capacitors store and release energy to smooth voltage fluctuations, while inductors regulate current flow to maintain stable power delivery to the CPU.",
+    },
+
+    {
+        "Question": "Describe the function of Direct Memory Access (DMA) and its impact on CPU performance.",
+        "Options": ["DMA allows peripherals to access memory directly, freeing up CPU resources",
+                    "DMA increases the CPU clock speed", "DMA is used for rendering graphics",
+                    "DMA manages the computer's power supply"],
+        "Answer": "DMA allows peripherals to access memory directly, freeing up CPU resources",
+        "Difficulty": "EXTREME",
+        "Explanation": "DMA enables peripherals to access system memory without involving the CPU, which improves overall performance by reducing CPU load.",
+    },
+
+
+    {
+        "Question": "How does Error-Correcting Code (ECC) memory detect and correct errors?",
+        "Options": ["ECC memory uses extra bits to store parity information for error detection and correction",
+                    "ECC memory increases the speed of data transfer", "ECC memory duplicates data to ensure accuracy",
+                    "ECC memory is only used in graphics cards"],
+        "Answer": "ECC memory uses extra bits to store parity information for error detection and correction",
+        "Difficulty": "EXTREME",
+        "Explanation": "ECC memory adds extra bits to data to store parity information, which helps detect and correct single-bit errors, enhancing data integrity.",
+    },
+
+    {
+        "Question": "Explain the difference between a ZIF (Zero Insertion Force) socket and a LGA (Land Grid Array) socket in terms of CPU installation.",
+        "Options": ["ZIF uses a lever to secure the CPU, LGA uses pins on the socket", "ZIF is faster than LGA",
+                    "ZIF requires more force to install the CPU", "ZIF and LGA are used for different types of RAM"],
+        "Answer": "ZIF uses a lever to secure the CPU, LGA uses pins on the socket",
+        "Difficulty": "EXTREME",
+        "Explanation": "ZIF sockets use a lever mechanism to secure the CPU without applying force, while LGA sockets have pins on the socket to make contact with the CPU's pads.",
+    },
+
+    {
+        "Question": "Discuss the role of a chipset in a computer system and how it affects compatibility and performance.",
+        "Options": ["The chipset manages communication between the CPU, RAM, and peripherals",
+                    "The chipset is responsible for rendering graphics", "The chipset stores user data",
+                    "The chipset determines the speed of the internet connection"],
+        "Answer": "The chipset manages communication between the CPU, RAM, and peripherals",
+        "Difficulty": "EXTREME",
+        "Explanation": "The chipset plays a crucial role in managing data flow between the CPU, RAM, and peripherals, affecting system compatibility, performance, and feature support.",
+    },
+
+    {
+        "Question": "How does a RAID 5 configuration balance performance, storage capacity, and data redundancy?",
+        "Options": ["RAID 5 uses striping with parity to distribute data across multiple drives",
+                    "RAID 5 duplicates data on all drives", "RAID 5 is a combination of RAID 0 and RAID 1",
+                    "RAID 5 is used for temporary storage"],
+        "Answer": "RAID 5 uses striping with parity to distribute data across multiple drives",
+        "Difficulty": "EXTREME",
+        "Explanation": "RAID 5 combines striping with parity, distributing data and parity information across multiple drives, providing fault tolerance while balancing performance and storage capacity.",
+    },
+
+    {
+        "Question": "What is the significance of the TRIM command in the context of SSD performance and longevity?",
+        "Options": ["The TRIM command informs the SSD of unused data blocks, allowing for efficient garbage collection",
+                    "The TRIM command increases the read speed of the SSD",
+                    "The TRIM command encrypts data stored on the SSD", "The TRIM command is used for backing up data"],
+        "Answer": "The TRIM command informs the SSD of unused data blocks, allowing for efficient garbage collection",
+        "Difficulty": "EXTREME",
+        "Explanation": "The TRIM command helps SSDs manage unused data blocks, improving performance and extending the lifespan by enabling efficient garbage collection and wear leveling.",
+    },
+
+    {
+        "Question": "How does Hyper-Threading technology in CPUs enhance performance for multi-threaded applications?",
+        "Options": ["Hyper-Threading allows a single core to execute multiple threads simultaneously",
+                    "Hyper-Threading increases the clock speed of the CPU",
+                    "Hyper-Threading adds more cores to the CPU", "Hyper-Threading reduces power consumption"],
+        "Answer": "Hyper-Threading allows a single core to execute multiple threads simultaneously",
+        "Difficulty": "EXTREME",
+        "Explanation": "Hyper-Threading technology enables a single CPU core to handle multiple threads concurrently, improving performance for multi-threaded applications by optimizing resource usage.",
+    },
+
+    {
+        "Question": "Explain the concept of TDP (Thermal Design Power) and its relevance to cooling solutions.",
+        "Options": ["TDP indicates the maximum heat generated by the CPU that a cooling system must dissipate", "TDP measures the electrical power consumed by the CPU", "TDP determines the physical size of the CPU cooler", "TDP is related to the color of the cooling fan"],
+        "Answer": "TDP indicates the maximum heat generated by the CPU that a cooling system must dissipate",
+        "Difficulty": "EXTREME",
+        "Explanation": "TDP represents the maximum amount of heat the CPU is expected to generate under typical workload conditions, guiding the design of adequate cooling solutions to maintain optimal temperatures.",
+    }
+
+]
+
+RAID_Questions_7_1_5 = [
+
+    {
+        "Question": "Witch RAID level is known for stripping without redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 0",
+        "Difficulty": "Easy",
+        "Explanation": "RAID 0 offers striping, which splits data across multiple disks. However, it does not provide redundancy, meaning if one disk fails, all data is lost."
+    },
+
+    {
+        "Question": "Witch RAID level mirrors data across multiple disks for redundancy?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 1",
+        "Difficulty": "Easy",
+        "Explanation": "RAID 1 mirrors data, creating exact copies on multiple disks. This provides redundancy since if one disk fails, the data can still be accessed from another."
+    },
+
+    {
+        "Question": "Witch RAID level offers striping with parity for fault tolerance",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Medium",
+        "Explanation": "RAID 5 combines striping with parity, distributing parity information across all disks. This allows data to be reconstructed in case of a single disk failure."
+    },
+
+    {
+        "Question": "What RAID level combines both striping and mirroring?",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Medium",
+        "Explanation": "RAID 10 combines striping (RAID 0) and mirroring (RAID 1). It provides both high performance and redundancy, but requires a minimum of four disks."
+    },
+
+    {
+        "Question": "What is a key feature of Network Attached Storage (NAS)?",
+        "Options": ["Directly attached to server", "Uses file-level storage", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses file-level storage",
+        "Difficulty": "Easy",
+        "Explanation": "NAS devices use file-level storage, meaning they store and serve files over a network. They are directly connected to the network, not to a specific server."
+    },
+
+    {
+        "Question": "What is a key feature of Storage Area Network (SAN)?",
+        "Options": ["Uses file-level storage", "Directly attached to server", "Uses block-level storage", "Mirrors data"],
+        "Answer": "Uses block-level storage",
+        "Difficulty": "Medium",
+        "Explanation": "SANs use block-level storage, providing high-speed access to disk blocks over a network. They are typically used for mission-critical applications that require fast access to large amounts of data."
+    },
+
+    {
+        "Question": "Which RAID level is best for high read and write performance with redundancy?",
+        "Options": ["RAID 0","RAID 1", "RAID 5", "RAID 10"],
+        "Answer": "RAID 10",
+        "Difficulty": "Hard",
+        "Explanation": "RAID 10 combines the benefits of RAID 0 (high performance) and RAID 1 (redundancy), making it suitable for applications that require both."
+    },
+
+    {
+        "Question": "Which technology is typically easier to set up and manage, NAS or SAN",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Easy",
+        "Explanation": "NAS is typically easier to set up and manage compared to SAN, as it requires less specialized knowledge and can be used by smaller organizations without a dedicated IT team."
+    },
+
+    {
+        "Question": "Which storage solution provides faster data access, NAS or SAN?",
+        "Options": ["NAS", "SAN", "Both", "Neither"],
+        "Answer": "SAN",
+        "Difficulty": "Medium",
+        "Explanation": "SAN generally provides faster data access compared to NAS, as it uses high-speed networking technologies and protocols designed for enterprise-level storage."
+    },
+
+    {
+        "Question": "Which RAID level would you choose for a system requiring high availability and redundancy",
+        "Options": ["RAID 0", "RAID 1", "RAID 5", "RAID 6", "RAID 10"],
+        "Answer": "RAID 5",
+        "Difficulty": "Hard",
+        "Explanation": "RAID 5 offers a good balance of availability, redundancy, and storage efficiency. It uses striping with parity, providing fault tolerance and allowing data recovery from a single disk failure."
+    }
+
+]
