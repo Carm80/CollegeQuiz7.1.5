@@ -1,0 +1,350 @@
+import sys
+import random
+import logging
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTextEdit, \
+    QSizePolicy, QGridLayout, QSpacerItem
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QTextOption, QFont, QColor
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+
+# Import the question lists from Main.py
+from Main import RAID_Questions_7_1_5, Types_Of_Physical_computer_System7_1_1, Hardware_Peripherals_7_1_2, Software_in_Computers_7_1_3_and_7_1_4
+
+from Main import Networks_7_2_1
+from Main import Networks_7_2_2
+from Main import Networks_7_2_3
+from Main import LAN_WAN_PAN_7_2_4
+from Main import Bandwidth_Latency_7_2_5
+from Main import Client_Thin_Servers_P2P_7_2_6
+from Main import Network_Topologies_7_2_7
+from Main import Networks_7_2_8
+from Main import OSI_7_2_9
+from Main import TCP_IP_7_2_10
+
+class QuizApp(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.questions = []
+        self.initUI()
+        self.current_question_index = 0
+        self.asked_questions = []
+        self.correct_answers = 0
+        self.incorrect_answers = 0
+
+    def set_questions(self, questions):
+        self.questions = questions
+
+    def initUI(self):
+        main_layout = QHBoxLayout(self)  # Changed to QHBoxLayout to split screen into left and right
+
+        # Initialize selection_layout_widget and grid layout
+        self.selection_layout_widget = QWidget(self)
+        self.selection_layout = QGridLayout()
+        self.selection_layout_widget.setLayout(self.selection_layout)
+        self.selection_layout.setSpacing(10)
+
+        # Style for the first window buttons
+        button_style_first_window = """
+            font-size: 28px; 
+            padding: 15px; 
+            background-color: #1E90FF; 
+            color: white; 
+            border-radius: 15px;
+        """
+
+        # Add 16 buttons to the grid layout
+        categories = [
+            "RAID Questions", "Types of Physical Computer Systems", "Hardware Peripherals", "Software in Computers",
+            "Connecting Devices To Form Networks", "Wireless Connection Methods", "Wired Connection Methods", "LAN WAN PAN",
+            "Bandwidth And Latency", "Client/Thin Servers P2P", "Network Topologies", "Components Of A Network",
+            "OSI", "TCP/IP", "Category 15", "Category 16", "Category 17", "Category 18", "Category 19", "Category 20",
+            "Category 21", "Category 22", "Category 23", "Category 24", "Category 25", "Category 26", "Category 27", "Category 28",
+            "Category 29", "Category 30", "Category 31", "Category 32", "Exit"
+        ]
+
+
+        for i, category in enumerate(categories):
+            button = QPushButton(category)
+            button.setStyleSheet(button_style_first_window)
+            button.setFixedSize(225, 170)
+
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(15)
+            shadow.setColor(QColor(0, 0, 0, 160))
+            shadow.setOffset(5, 5)
+            button.setGraphicsEffect(shadow)
+
+            label = QLabel(category, button)
+            label.setAlignment(Qt.AlignCenter)
+            label.setWordWrap(True)
+            label.setStyleSheet("color: white; font-size: 20px")
+            label.setGeometry(button.rect())
+
+            if category != "Exit":
+                button.clicked.connect(lambda checked, c=category: self.startQuiz(c))
+            else:
+                button.clicked.connect(self.close)
+            self.selection_layout.addWidget(button, i // 8, i % 8)  # Adjust grid layout to 8x8
+
+            button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        main_layout.addWidget(self.selection_layout_widget)  # Add the selection layout widget to the main layout
+
+        # Quiz layout container
+        self.quiz_layout_widget = QWidget(self)
+        self.quiz_layout = QHBoxLayout(self.quiz_layout_widget)  # Changed to QHBoxLayout to split left and right
+        self.quiz_layout_widget.setVisible(False)
+        main_layout.addWidget(self.quiz_layout_widget)
+
+        # Left side layout for difficulty label, question, and options
+        left_container = QWidget(self)
+        left_container.setMaximumWidth(800)
+        left_layout = QVBoxLayout(left_container)
+        #left_layout.setContentsMargins(50, 0 , 0 , 0)
+
+        self.difficulty_label = QLabel(self)
+        self.difficulty_label.setStyleSheet("font-size: 28px; color: darkgreen; padding: 10px;")
+        left_layout.addWidget(self.difficulty_label)
+        left_layout.addStretch(1)
+
+        self.question_label = QLabel(self)
+        self.question_label.setWordWrap(True)
+        self.question_label.setStyleSheet(
+            "color: darkgreen; padding: 20px; background-color: lightyellow; margin-top: 10px;")
+        self.question_label.setFont(QFont("Arial", 28))
+        self.question_label.setFixedSize(600, 450)  # Constrain width to ensure it doesn't cross the middle
+        left_layout.addWidget(self.question_label)  #
+        left_layout.addStretch(1)
+
+        self.option_button = []
+        for i in range(4):
+            btn = QPushButton()
+            btn.setStyleSheet("""
+                font-size: 20px; 
+                padding: 15px; 
+                background-color: #1E90FF; 
+                color: white; 
+                border-radius: 25px; 
+                margin-top: 15px;
+            """)
+            btn.clicked.connect(self.check_answer)
+            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+            shadow = QGraphicsDropShadowEffect()
+            shadow.setBlurRadius(15)
+            shadow.setColor(QColor(0, 0, 0, 160))
+            shadow.setOffset(5, 5)
+            btn.setGraphicsEffect(shadow)
+
+            label = QLabel("Options", btn)
+            label.setAlignment(Qt.AlignCenter)
+            label.setWordWrap(True)
+            label.setStyleSheet("color: white; font-size: 20px;")
+            label.setGeometry(btn.rect())
+
+            layout = QVBoxLayout(btn)
+            layout.addWidget(label)
+            btn.setLayout(layout)
+
+            left_layout.addWidget(btn)
+            self.option_button.append(label)
+
+            btn.setMinimumHeight(100)  # Increase height to allow text wrapping
+            btn.setMinimumWidth(270)  # Adjust width as necessary
+
+            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.quiz_layout.addWidget(left_container)
+
+        # Right side layout for buttons, feedback, explanation, and answer
+        right_layout = QVBoxLayout()
+        button_layout = QHBoxLayout()  # Added layout for buttons
+
+        self.answer_button = QPushButton("Answer", self)
+        self.answer_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.answer_button.setFixedSize(400, 80)
+        self.answer_button.setStyleSheet(
+            "font-size: 22px; padding: 10px; background-color: #1E90FF; color: white; border-radius: 15px;")
+
+        #Add Shadow effect to Answer Button
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(15)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        shadow.setOffset(5, 5)
+        self.answer_button.setGraphicsEffect(shadow)
+
+        self.answer_button.clicked.connect(self.show_answer)
+        button_layout.addWidget(self.answer_button)
+
+        self.explanation_button = QPushButton("Show Explanation", self)
+        self.explanation_button.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.explanation_button.setFixedSize(400, 80)
+        self.explanation_button.setStyleSheet(
+            "font-size: 22px; padding: 10px; background-color: #1E90FF; color: white; border-radius: 15px;")
+
+        #Add Shadow effect to the Show Explanation button
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(15)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        shadow.setOffset(5, 5)
+        self.explanation_button.setGraphicsEffect(shadow)
+
+        self.explanation_button.clicked.connect(self.show_explanation)
+        button_layout.addWidget(self.explanation_button)
+
+        right_layout.addLayout(button_layout)  # Added button layout to right layout
+
+        right_layout.addItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
+        self.feedback_label = QLabel(self)
+        self.feedback_label.setAlignment(Qt.AlignCenter)
+        self.feedback_label.setWordWrap(True)
+        self.feedback_label.setStyleSheet("color: darkgreen; padding: 10px;")
+        self.feedback_label.setFont(QFont("Arial", 38))
+        right_layout.addWidget(self.feedback_label)
+
+        self.explanation_text = QTextEdit(self)
+        self.explanation_text.setReadOnly(True)
+        self.explanation_text.setWordWrapMode(QTextOption.WordWrap)  # Enable text wrapping
+        self.explanation_text.setStyleSheet(
+            "font-size: 32px; color: darkgreen; padding: 10px; min-height: 200px;")  # Make the explanation area taller
+        right_layout.addWidget(self.explanation_text)
+
+        self.answer_text = QTextEdit(self)
+        self.answer_text.setReadOnly(True)
+        self.answer_text.setWordWrapMode(QTextOption.WordWrap)  # Enable text wrapping
+        self.answer_text.setStyleSheet(
+            "font-size: 32px; color: darkgreen; padding: 10px;")  # Make the answer area taller
+        self.answer_text.setFixedHeight(200)
+        self.answer_text.setMaximumWidth(500)
+        right_layout.addWidget(self.answer_text)
+
+        self.quiz_layout.addLayout(right_layout)
+
+        self.setLayout(main_layout)
+        self.setWindowTitle("Study Quiz App")
+        #self.setGeometry(0, 0, 1600, 1200)
+        self.showMaximized()
+
+    def startQuiz(self, category):
+        # All of 7.1
+        if category == "RAID Questions":
+            self.set_questions(RAID_Questions_7_1_5)
+        elif category == "Types of Physical Computer Systems":
+            self.set_questions(Types_Of_Physical_computer_System7_1_1)
+        elif category == "Hardware Peripherals":
+            self.set_questions(Hardware_Peripherals_7_1_2)
+        elif category == "Software in Computers":
+            self.set_questions(Software_in_Computers_7_1_3_and_7_1_4)
+
+        #All of 7.2
+        elif category == "Connecting Devices To Form Networks":
+            self.set_questions(Networks_7_2_1)
+        elif category == "Wireless Connection Methods":
+            self.set_questions(Networks_7_2_2)
+        elif category == "Wired Connection Methods":
+            self.set_questions(Networks_7_2_3)
+        elif category == "LAN WAN PAN":
+            self.set_questions(LAN_WAN_PAN_7_2_4)
+        elif category == "Bandwidth And Latency":
+            self.set_questions(Bandwidth_Latency_7_2_5)
+        elif category == "Client/Thin Servers P2P":
+            self.set_questions(Client_Thin_Servers_P2P_7_2_6)
+        elif category == "Network Topologies":
+            self.set_questions(Network_Topologies_7_2_7)
+        elif category == "Components Of A Network":
+            self.set_questions(Networks_7_2_8)
+        elif category == "OSI":
+            self.set_questions(OSI_7_2_9)
+        elif category == "TCP/IP":
+            self.set_questions(TCP_IP_7_2_10)
+
+
+
+
+
+        self.selection_layout_widget.setVisible(False)
+        self.quiz_layout_widget.setVisible(True)
+        self.load_questions()
+
+    def load_questions(self):
+        self.feedback_label.clear()
+        self.explanation_text.clear()
+        self.answer_text.clear()
+        if len(self.asked_questions) == len(self.questions):
+            self.show_completion_message()
+            return
+
+        while True:
+            question_index = random.randint(0, len(self.questions) - 1)
+            if question_index not in self.asked_questions:
+                self.asked_questions.append(question_index)
+                self.current_question = self.questions[question_index]
+                break
+
+        self.question_label.setText(self.current_question["Question"])
+        difficulty = self.current_question.get("Difficulty", "Easy")
+        if difficulty == "Easy":
+            self.question_label.setStyleSheet("background-color: lightgreen; padding: 10px;")
+            self.difficulty_label.setText("Easy")
+        elif difficulty == "Medium":
+            self.question_label.setStyleSheet("background-color: yellow; padding: 10px;")
+            self.difficulty_label.setText("Medium")
+        elif difficulty == "Hard":
+            self.question_label.setStyleSheet("background-color: red; color: white; padding: 10px;")
+            self.difficulty_label.setText("Hard")
+        else:
+            self.question_label.setStyleSheet("background-color: purple; color: white; padding: 10px;")
+            self.difficulty_label.setText("EXTREME")
+
+        all_options = self.current_question["Options"]
+        random.shuffle(all_options)
+
+        for i, option in enumerate(all_options):
+            btn = self.option_button[i].parentWidget()
+            btn.setText(option)
+            self.option_button[i].setText(option)
+            btn.setVisible(True)
+
+        for j in range(len(all_options), len(self.option_button)):
+            self.option_button[j].parentWidget().setVisible(False)
+
+    def show_explanation(self):
+        explanation = self.current_question.get("Explanation", "No explanation available.")
+        if explanation.strip() == "":
+            explanation = "No explanation available."
+        self.explanation_text.setPlainText(explanation)
+
+    def show_answer(self):
+        self.answer_text.setPlainText(f"{self.current_question['Answer']}.")
+
+    def check_answer(self):
+        sender = self.sender()
+        chosen_answer = sender.text().strip()
+        correct_answer = self.current_question["Answer"].strip()
+
+        if chosen_answer == correct_answer:
+            self.correct_answers += 1
+            self.feedback_label.setText("Correct! Well Done")
+            self.feedback_label.setStyleSheet("color: green; font-size: 125px; padding 10px:")
+        else:
+            self.incorrect_answers += 1
+            self.feedback_label.setText(f"{correct_answer}.")
+            self.feedback_label.setStyleSheet("color: red; font-size 50px; padding 10px;")
+
+        self.show_explanation()
+        QTimer.singleShot(3000, self.load_questions)
+
+    def show_completion_message(self):
+        self.feedback_label.setText(f"Quiz completed! Correct Answers: {self.correct_answers}, Incorrect Answers: {self.incorrect_answers}")
+        self.feedback_label.setStyleSheet("color: blue;")
+
+def main():
+    app = QApplication(sys.argv)
+    ex = QuizApp()
+    ex.show()
+    sys.exit(app.exec_())
+
+if __name__ == "__main__":
+    main()
